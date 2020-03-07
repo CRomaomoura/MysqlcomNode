@@ -9,9 +9,15 @@ var conn = mysql.createConnection({
 conn.connect(function(err){
     if(err) throw err;
     console.log("Conectado!");   
-    var sql = "INSERT INTO consumidor (nome, endereco) VALUES ('Joaozim da silva', 'Rua 22 de marco 1022')";
-    conn.query(sql, function(err, results){
+    var sql = "INSERT INTO consumidor (nome, endereco) VALUES ?";
+    var values = [['Joao', 'rua das flores - 68'],
+                ['marcos', 'rua da paz - 3355'],
+                ['Gui', 'rua da pedra - 4455'],
+                ['Fabio', 'rua das Adagas - 5588'],
+                ['Lucas', 'rua das Arcaçias - 5556']
+                ];
+    conn.query(sql,[values], function(err, results){
         if (err) throw err;
-        console.log("Registro inserido com sucesso!");
+        console.log(results.affectedRows + " Registros inseridos com sucesso!");
     });
 });
